@@ -147,18 +147,20 @@ class _WaterTrackerScreenState extends State<WaterTrackerScreen> {
           ),
 
           // Yesterday and Week Totals
-          Padding(
-            padding: const EdgeInsets.all(16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text("Yesterday", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-                Text("Total: ${(last2DaysTotals[1] / 1000).toStringAsFixed(2)} L", style: TextStyle(fontSize: 14, color: Colors.grey)),
-                SizedBox(height: 10),
+          Center(
+            child: Padding(
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text("Yesterday", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                  Text("Total: ${(last2DaysTotals[1] / 1000).toStringAsFixed(2)} L", style: TextStyle(fontSize: 14, color: Colors.grey)),
+                  SizedBox(height: 10),
 
-                Text("Total This Week", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-                Text("${(weeklyTotal / 1000).toStringAsFixed(2)} L", style: TextStyle(fontSize: 14)),
-              ],
+                  Text("Week's total", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                  Text("${(weeklyTotal / 1000).toStringAsFixed(2)} L", style: TextStyle(fontSize: 14)),
+                ],
+              ),
             ),
           ),
         ],

@@ -44,3 +44,8 @@ app.*.map.json
 
 .metadata
 .vscode/
+test/
+sds
+
+analysis_options.yaml
+devtools_options.yaml

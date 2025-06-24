@@ -2,15 +2,27 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'utils/notification_helper.dart';
+
 import 'screens/home_screen.dart';
 import 'screens/water_tracker_screen.dart';
-import 'providers/water_provider.dart';
+import 'screens/weight_tracker_screen.dart';
+import 'screens/body_tracker_screen.dart';
 
+import 'providers/water_provider.dart';
+import 'providers/weight_provider.dart';
+import 'providers/body_provider.dart';
+
+// import 'package:sqflite/sqflite.dart';
+// import 'package:path/path.dart';
 
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   tz.initializeTimeZones();
+
+  // // 🧨 TEMP: Delete existing DB (for development only)
+  // final dbPath = await getDatabasesPath();
+  // await deleteDatabase(join(dbPath, 'wellness_tracker.db'));
 
   await NotificationHelper.initialize(_handleNotificationTap);
   await NotificationHelper.scheduleWaterReminders();
@@ -32,6 +44,8 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => WaterProvider()..loadEntries()),
+        ChangeNotifierProvider(create: (_) => WeightProvider()..loadEntries()),
+        ChangeNotifierProvider(create: (_) => BodyProvider()..loadMeasurements()),
       ],
       child: MaterialApp(
         navigatorKey: navigatorKey,
@@ -41,6 +55,8 @@ class MyApp extends StatelessWidget {
         routes: {
           '/': (context) => HomeScreen(), // Your home
           WaterTrackerScreen.routeName: (context) => WaterTrackerScreen(),
+          WeightTrackerScreen.routeName: (context) => WeightTrackerScreen(),
+          BodyTrackerScreen.routeName: (context) => BodyTrackerScreen()
         },
       ),
     );
