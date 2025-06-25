@@ -69,7 +69,7 @@ class _EatingWindowProgressBarState extends State<EatingWindowProgressBar> {
           backgroundColor: Colors.grey[300],
           color: Color.fromARGB(255, 0, 150, 102),
         ),
-        SizedBox(height: 4),
+        SizedBox(height: 6),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [

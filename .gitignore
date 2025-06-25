@@ -49,3 +49,10 @@ sds
 
 analysis_options.yaml
 devtools_options.yaml
+
+ios/
+android/
+web/
+linux/
+windows/
+macos/

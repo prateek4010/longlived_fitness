@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:wellness_tracker_app/screens/body_tracker_screen.dart';
 import '../widgets/eating_window_progress_bar.dart';
+import '../widgets/quote_of_the_day.dart';
 import 'water_tracker_screen.dart';
 import 'weight_tracker_screen.dart';
 
@@ -24,9 +25,13 @@ class HomeScreen extends StatelessWidget {
                 child: Text(
                   "Welcome Aayushi",
                   textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.normal),
                 ),
               ),
-              SizedBox(height: 30),
+              SizedBox(height: 8),
+
+              QuoteOfTheDay(dayIndex: daysSince),
+              SizedBox(height: 4),
 
               // Days passed
               RichText(
