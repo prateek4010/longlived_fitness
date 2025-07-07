@@ -1,7 +1,7 @@
 const Map<String, double> foodCalories = {
-  '1 Protein scoop': 120,
-  'Egg white': 18,
-  
+  'Protein scoop': 12000,
+  'Egg white': 1800,
+
   // Vegetables (per 100g)
   'Cabbage': 25,
   'Onion': 40,
@@ -28,13 +28,13 @@ const Map<String, double> foodCalories = {
   'Garlic': 149,
 
   // Oils & Fats (per tablespoon ~ 15ml)
-  'Ghee (1 tbsp)': 116,
-  'Butter (1 tbsp)': 102,
-  'Olive Oil (1 tbsp)': 119,
-  'Coconut Oil (1 tbsp)': 113,
-  'Sesame Oil (1 tbsp)': 120,
-  'Mustard Oil (1 tbsp)': 120,
-  'Avocado Oil (1 tbsp)': 124,
+  'Ghee (1 tbsp)': 11600,
+  'Butter (1 tbsp)': 10200,
+  'Olive Oil (1 tbsp)': 11900,
+  'Coconut Oil (1 tbsp)': 11300,
+  'Sesame Oil (1 tbsp)': 12000,
+  'Mustard Oil (1 tbsp)': 12000,
+  'Avocado Oil (1 tbsp)': 12400,
 
   // Herbs (no calorie info given, so omitted)
   // 'Coriander', 'Mint', 'Basil', 'Parsley', etc. can be optionally listed with 0

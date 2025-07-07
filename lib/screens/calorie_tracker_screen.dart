@@ -122,10 +122,26 @@ class _CalorieTrackerScreenState extends State<CalorieTrackerScreen> {
                             itemCount: todayEntries.length,
                             itemBuilder: (context, index) {
                               final e = todayEntries[index];
-                              return ListTile(
-                                title: Text(e.food),
-                                subtitle: Text(
-                                  "${e.calories.toStringAsFixed(1)} cal at ${TimeOfDay.fromDateTime(e.timestamp).format(context)}",
+                              return Dismissible(
+                                key: Key(e.timestamp.toIso8601String()),
+                                direction: DismissDirection.endToStart,
+                                background: Container(
+                                  color: Colors.red,
+                                  alignment: Alignment.centerRight,
+                                  padding: EdgeInsets.only(right: 20),
+                                  child: Icon(Icons.delete, color: Colors.white),
+                                ),
+                                onDismissed: (direction) async {
+                                  await Provider.of<CalorieProvider>(context, listen: false).deleteEntry(e);
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(content: Text('${e.food} removed')),
+                                  );
+                                },
+                                child: ListTile(
+                                  title: Text(e.food),
+                                  subtitle: Text(
+                                    "${e.calories.toStringAsFixed(1)} kcal at ${TimeOfDay.fromDateTime(e.timestamp).format(context)}",
+                                  ),
                                 ),
                               );
                             },

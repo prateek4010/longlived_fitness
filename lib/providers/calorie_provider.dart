@@ -40,4 +40,15 @@ class CalorieProvider with ChangeNotifier {
       return MapEntry("${date.month}/${date.day}", total);
     }).reversed.toList();
   }
+
+  Future<void> deleteEntry(CalorieEntry entry) async {
+    final db = await DatabaseHelper.instance.database;
+    await db.delete(
+      'calorie_entries',
+      where: 'timestamp = ?',
+      whereArgs: [entry.timestamp.toIso8601String()],
+    );
+    await loadEntries();
+  }
+
 }
