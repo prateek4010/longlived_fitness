@@ -54,7 +54,8 @@ class _WaterTrackerScreenState extends State<WaterTrackerScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('💧 Water Tracker'),
+        title: Text('💧 Water Tracker', style: TextStyle (color: Colors.white, fontWeight: FontWeight.bold)),
+        backgroundColor: Color.fromARGB(255, 125, 91, 183),
         actions: [
           IconButton(
             icon: Icon(Icons.refresh),
@@ -68,7 +69,7 @@ class _WaterTrackerScreenState extends State<WaterTrackerScreen> {
       ),
       body: Column(
         children: [
-          SizedBox(height: 10),
+          SizedBox(height: 20),
 
           // Today Section
           Center(
@@ -77,14 +78,28 @@ class _WaterTrackerScreenState extends State<WaterTrackerScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Text("Today", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-                  Text("Total: ${(last2DaysTotals[0] / 1000).toStringAsFixed(2)} L", style: TextStyle(fontSize: 16)),
+                  Text("Today", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                  SizedBox(height: 4),
+                  Text.rich(
+                    TextSpan(
+                      children: [
+                        TextSpan(
+                          text: "Total: ",
+                          style: TextStyle(fontSize: 18, color: Colors.black),
+                        ),
+                        TextSpan(
+                          text: "${(last2DaysTotals[0] / 1000).toStringAsFixed(2)} L",
+                          style: TextStyle(fontSize: 20, color: Colors.deepOrange), // Change this color
+                        ),
+                      ],
+                    ),
+                  )
                 ],
               ),
             ),
           ),
 
-          SizedBox(height: 10),
+          SizedBox(height: 14),
 
           // Quick Add Buttons
           Padding(
@@ -125,7 +140,7 @@ class _WaterTrackerScreenState extends State<WaterTrackerScreen> {
                 ),
               ),
 
-          SizedBox(height: 16),
+          SizedBox(height: 10),
 
           // Show only today's entries in scroll view
           Expanded(
@@ -153,12 +168,11 @@ class _WaterTrackerScreenState extends State<WaterTrackerScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text("Yesterday", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-                  Text("Total: ${(last2DaysTotals[1] / 1000).toStringAsFixed(2)} L", style: TextStyle(fontSize: 14, color: Colors.grey)),
-                  SizedBox(height: 10),
-
-                  Text("Week's total", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-                  Text("${(weeklyTotal / 1000).toStringAsFixed(2)} L", style: TextStyle(fontSize: 14)),
+                  Text("Yesterday's total", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                  Text("${(last2DaysTotals[1] / 1000).toStringAsFixed(2)} L", style: TextStyle(fontSize: 18, color: Colors.deepOrange)),
+                  SizedBox(height: 8),
+                  Text("Week's total", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                  Text("${(weeklyTotal / 1000).toStringAsFixed(2)} L", style: TextStyle(fontSize: 18, color: Colors.deepOrange)),
                 ],
               ),
             ),

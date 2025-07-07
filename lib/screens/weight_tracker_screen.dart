@@ -13,17 +13,50 @@ class WeightTrackerScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final provider = Provider.of<WeightProvider>(context);
     final entries = provider.entries;
+    final today = DateTime.now();
+
+    final todayEntry = provider.entries.firstWhere(
+      (e) =>
+          e.date.year == today.year &&
+          e.date.month == today.month &&
+          e.date.day == today.day,
+      orElse: () => null as WeightEntry, 
+    );
 
     return Scaffold(
-      appBar: AppBar(title: Text("🏋️ Weight Tracker")),
+      appBar: AppBar(
+        title: Text("🏋️ Weight Tracker", style: TextStyle (color: Colors.white, fontWeight: FontWeight.bold)),
+        backgroundColor: Color.fromARGB(255, 125, 91, 183),
+      ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
+            SizedBox(height: 10),
             ElevatedButton(
               onPressed: () => _showAddDialog(context),
               child: Text("Add Today's Weight"),
             ),
+            SizedBox(height: 20),
+            RichText(
+              text: TextSpan(
+                style: TextStyle(fontSize: 18, color: Colors.black),
+                children: [
+                  if (todayEntry != null) ...[
+                    TextSpan(text: 'You weigh '),
+                    TextSpan(
+                      text: '${todayEntry.weightKg.toStringAsFixed(1)} kg',
+                      style: TextStyle(color: Colors.deepOrange),
+                    ),
+                    TextSpan(text: ' today'),
+                  ] else
+                    TextSpan(
+                      text: 'Not recorded yet',
+                    ),
+                ],
+              ),
+            ),
+
             SizedBox(height: 40),
             if (entries.isEmpty)
               Center(child: Text("No data yet."))

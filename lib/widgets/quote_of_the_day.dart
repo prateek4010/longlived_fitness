@@ -25,12 +25,12 @@ class QuoteOfTheDay extends StatelessWidget {
             '"$quote"',
             style: TextStyle(
               fontSize: 16,
-              color: Colors.deepPurple.shade700,
+              color: Color.fromARGB(255, 183, 58, 116),
               fontStyle: FontStyle.italic
             ),
             textAlign: TextAlign.center,
           ),
-          SizedBox(height: 8),
+          SizedBox(height: 2),
         ],
       ),
     );

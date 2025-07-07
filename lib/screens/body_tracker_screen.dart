@@ -17,12 +17,16 @@ class BodyTrackerScreen extends StatelessWidget {
     final provider = Provider.of<BodyProvider>(context);
 
     return Scaffold(
-      appBar: AppBar(title: Text("📏 Body Tracker")),
+      appBar: AppBar(
+        title: Text('Body Tracker', style: TextStyle (color: Colors.white, fontWeight: FontWeight.bold)),
+        backgroundColor: Color.fromARGB(255, 125, 91, 183),
+      ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            SizedBox(height: 14),
             Center(
               child: ElevatedButton(
                 onPressed: () => _showAddDialog(context),

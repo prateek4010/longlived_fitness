@@ -3,6 +3,7 @@ import 'package:path/path.dart';
 import '../models/water_entry.dart';
 import '../models/weight_entry.dart';
 import '../models/body_measurement.dart';
+import '../models/calorie_entry.dart';
 
 class DatabaseHelper {
   static final DatabaseHelper instance = DatabaseHelper._init();
@@ -20,7 +21,11 @@ class DatabaseHelper {
     final dbPath = await getDatabasesPath();
     final path = join(dbPath, filePath);
 
-    return await openDatabase(path, version: 2, onCreate: _createDB);
+    return await openDatabase(
+      path, version: 3,
+      onCreate: _createDB,
+      onUpgrade: _upgradeDB,
+    );
   }
 
   Future _createDB(Database db, int version) async {
@@ -51,6 +56,28 @@ class DatabaseHelper {
         arms REAL NOT NULL
       )
     ''');
+
+    await db.execute('''
+      CREATE TABLE calorie_entries (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        food TEXT,
+        calories REAL,
+        timestamp TEXT
+      )
+    ''');
+  }
+
+  Future _upgradeDB(Database db, int oldVersion, int newVersion) async {
+    if (oldVersion < 3) {
+      await db.execute('''
+        CREATE TABLE calorie_entries (
+          id INTEGER PRIMARY KEY AUTOINCREMENT,
+          food TEXT,
+          calories REAL,
+          timestamp TEXT
+        )
+      ''');
+    }
   }
 
   Future<void> insertWaterEntry(WaterEntry entry) async {
@@ -109,4 +136,17 @@ class DatabaseHelper {
     final result = await db.query('body_measurements', orderBy: 'date DESC');
     return result.map((map) => BodyMeasurement.fromMap(map)).toList();
   }
+
+  Future<void> insertCalorieEntry(CalorieEntry entry) async {
+    final db = await database;
+    await db.insert('calorie_entries', entry.toMap());
+  }
+
+  Future<List<CalorieEntry>> getCalorieEntries() async {
+    final db = await database;
+    final maps = await db.query('calorie_entries', orderBy: 'timestamp DESC');
+    return maps.map((e) => CalorieEntry.fromMap(e)).toList();
+  }
+
+  
 }

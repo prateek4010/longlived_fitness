@@ -54,13 +54,16 @@ class WaterProvider with ChangeNotifier {
   }
 
   static Future<double> getTodayTotalFromDB() async {
-  final entries = await DatabaseHelper.instance.getWaterEntries();
-  final today = DateTime.now();
-  return entries
-      .where((e) =>
-          e.timestamp.year == today.year &&
-          e.timestamp.month == today.month &&
-          e.timestamp.day == today.day)
-      .fold<double>(0.0, (sum, e) => sum + e.amountMl);
-}
+    final entries = await DatabaseHelper.instance.getWaterEntries();
+
+    final todayDate = DateTime.now();
+    final todayOnly = DateTime(todayDate.year, todayDate.month, todayDate.day);
+
+    return entries
+        .where((e) {
+          final entryDate = DateTime(e.timestamp.year, e.timestamp.month, e.timestamp.day);
+          return entryDate == todayOnly;
+        })
+        .fold<double>(0.0, (sum, e) => sum + e.amountMl);
+  }
 }

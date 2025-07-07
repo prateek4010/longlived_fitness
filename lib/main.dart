@@ -7,10 +7,12 @@ import 'screens/home_screen.dart';
 import 'screens/water_tracker_screen.dart';
 import 'screens/weight_tracker_screen.dart';
 import 'screens/body_tracker_screen.dart';
+import 'screens/calorie_tracker_screen.dart';
 
 import 'providers/water_provider.dart';
 import 'providers/weight_provider.dart';
 import 'providers/body_provider.dart';
+import 'providers/calorie_provider.dart';
 
 // import 'package:sqflite/sqflite.dart';
 // import 'package:path/path.dart';
@@ -46,6 +48,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => WaterProvider()..loadEntries()),
         ChangeNotifierProvider(create: (_) => WeightProvider()..loadEntries()),
         ChangeNotifierProvider(create: (_) => BodyProvider()..loadMeasurements()),
+        ChangeNotifierProvider(create: (_) => CalorieProvider()..loadEntries()),
       ],
       child: MaterialApp(
         navigatorKey: navigatorKey,
@@ -56,7 +59,8 @@ class MyApp extends StatelessWidget {
           '/': (context) => HomeScreen(), // Your home
           WaterTrackerScreen.routeName: (context) => WaterTrackerScreen(),
           WeightTrackerScreen.routeName: (context) => WeightTrackerScreen(),
-          BodyTrackerScreen.routeName: (context) => BodyTrackerScreen()
+          BodyTrackerScreen.routeName: (context) => BodyTrackerScreen(),
+          CalorieTrackerScreen.routeName: (context) => CalorieTrackerScreen(),
         },
       ),
     );
